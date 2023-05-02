@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("org.jetbrains.compose")
 }
@@ -34,16 +35,14 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
 
-                // Mutekt
-                implementation("dev.shreyaspatil.mutekt:mutekt-core:1.0.0-ios")
-
-                // This is not needed, but included to fix issue with compilation due to old version.
-                implementation("org.jetbrains.kotlinx:atomicfu:0.20.0")
-
-                // Ktor
-                implementation("io.ktor:ktor-client-core:2.2.4")
-                implementation("io.ktor:ktor-client-content-negotiation:2.2.4")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:2.2.4")
+                implementation("io.ktor:ktor-client-core:2.3.0")
+                implementation("io.ktor:ktor-client-logging:2.3.0")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.0")
+                implementation("io.ktor:ktor-client-content-negotiation:2.3.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+                api("io.github.qdsfdhvh:image-loader:1.4.0")
+                api("moe.tlaster:precompose:1.4.1")
+                api("moe.tlaster:precompose-viewmodel:1.4.1")
             }
         }
         val androidMain by getting {
@@ -54,9 +53,6 @@ kotlin {
 
                 // Ktor
                 api("io.ktor:ktor-client-core:2.2.4")
-
-                // Utils
-                api("io.coil-kt:coil-compose:2.3.0")
             }
         }
         val iosX64Main by getting
@@ -68,7 +64,8 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:2.2.4")
+                implementation("io.ktor:ktor-client-darwin:2.3.0")
+                implementation("io.ktor:ktor-client-ios:2.3.0")
             }
         }
     }
