@@ -53,6 +53,9 @@ kotlin {
 
                 // Ktor
                 api("io.ktor:ktor-client-core:2.2.4")
+
+                //Coil
+                api("io.coil-kt:coil-compose:2.3.0")
             }
         }
         val iosX64Main by getting
